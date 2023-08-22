@@ -1,4 +1,14 @@
 name: MobBattle
 version: '${project.version}'
 main: me.mxtery.mobbattle.MobBattle
-api-version: 1.20
+api-version: '1.20'
+commands:
+  mobbattle:
+    usage: /<command> <target player> <item> <amount>
+    description: Gives target player the specified item
+    permission: mobbattle.item
+    aliases: [mb]
+permissions:
+  mobbattle.item:
+    description: Allows player to obtain mob battle items via commands
+    default: op

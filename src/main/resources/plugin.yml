@@ -4,11 +4,12 @@ main: me.mxtery.mobbattle.MobBattle
 api-version: '1.20'
 commands:
   mobbattle:
-    usage: /<command> <target player> <item> <amount>
-    description: Gives target player the specified item
-    permission: mobbattle.item
+    usage: /mb give/help
+    description: Main command for the MobBattle plugin. Use /mb help for more info.
+    permission: mobbattle.commands
     aliases: [mb]
 permissions:
   mobbattle.item:
     description: Allows player to obtain mob battle items via commands
     default: op
+

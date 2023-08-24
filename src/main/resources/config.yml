@@ -1,0 +1,15 @@
+############################################################
+# +------------------------------------------------------+ #
+# |                      MobBattle                       | #
+# |       Thanks for taking interest in my plugin!       | #
+# |        Here are some things you can configure.       | #
+# +------------------------------------------------------+ #
+############################################################
+no-permissions-message: "&cSorry, you do not have the permission to do this."
+#This ensures that other mobs won't target those engaged in battle, even if the battling mobs have hit them. (disables Zombified Piglin mob behaviour, etc.)
+true1v1: true
+actionbar:
+  actionbar-messages: true
+  ticks-between-actionbar-messages: 1
+chat:
+  send-non-essential-chat-messages: true

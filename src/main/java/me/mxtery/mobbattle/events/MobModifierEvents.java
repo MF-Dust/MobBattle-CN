@@ -17,7 +17,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.persistence.PersistentDataType;
 
 public class MobModifierEvents implements Listener {
-    //TODO 1.2:, EQUIP MOB ARMOR, APPLY POTION FX
+    //TODO 2.1:, EQUIP MOB ARMOR, APPLY POTION FX
     @EventHandler
     public void onMobParalyze(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();

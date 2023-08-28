@@ -1,7 +1,7 @@
 package me.mxtery.mobbattle.commands;
 
-import me.mxtery.mobbattle.helpers.ConfigManager;
 import me.mxtery.mobbattle.MobBattle;
+import me.mxtery.mobbattle.helpers.ConfigManager;
 import me.mxtery.mobbattle.helpers.MessageHelper;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -16,26 +16,25 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.util.Objects;
 
 public class MobBattleCommand implements CommandExecutor {
-    private MobBattle plugin;
+    private final MobBattle plugin;
 
-    public MobBattleCommand(MobBattle plugin){
+    public MobBattleCommand(MobBattle plugin) {
         this.plugin = plugin;
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!sender.hasPermission("mobbattle.commands")){
+        if (!sender.hasPermission("mobbattle.commands")) {
             MessageHelper.sendPluginMessage(sender, Objects.requireNonNull(ConfigManager.getNoPermissionMessage()));
             return true;
         }
 
-        if (args.length <1){
+        if (args.length < 1) {
             TextComponent pluginName = new TextComponent(ChatColor.translateAlternateColorCodes('&', "&6&l[&bMobBattle&6&l]&r "));
             TextComponent invalidArgs = new TextComponent(ChatColor.RED + "Invalid arguments! ");
 
@@ -50,46 +49,46 @@ public class MobBattleCommand implements CommandExecutor {
             return true;
         }
 
-        switch (args[0]){
+        switch (args[0]) {
             case "give":
                 ItemStack toGive = null;
                 int amount;
 
-                if (args.length < 3){
+                if (args.length < 3) {
                     MessageHelper.sendPluginMessage(sender, "&cInvalid arguments! /mb give <player> <item> <amount>");
                     break;
                 }
                 Player target = Bukkit.getPlayer(args[1]);
-                if (target == null){
+                if (target == null) {
                     MessageHelper.sendPluginMessage(sender, "&cInvalid arguments! /mb give <player> <item> <amount>");
                     break;
                 }
 
-                for (ItemStack item : plugin.getItemManager().getItems()){
+                for (ItemStack item : plugin.getItemManager().getItems()) {
 
-                    if (item.getItemMeta().getPersistentDataContainer().getKeys().contains(NamespacedKey.fromString(args[2], plugin))){
+                    if (item.getItemMeta().getPersistentDataContainer().getKeys().contains(NamespacedKey.fromString(args[2], plugin))) {
                         toGive = item;
                         break;
                     }
                 }
-                if (toGive == null){
+                if (toGive == null) {
                     MessageHelper.sendPluginMessage(sender, "&cInvalid arguments! /mb give <player> <item> <amount>");
                     break;
                 }
                 try {
-                    if (args.length == 3){
+                    if (args.length == 3) {
                         amount = 1;
-                    }else{
+                    } else {
                         amount = Integer.parseInt(args[3]);
                     }
-                    if (amount <=0){
+                    if (amount <= 0) {
                         break;
                     }
                     toGive.setAmount(amount);
                     target.getInventory().addItem(toGive);
 
-                    MessageHelper.sendPluginMessage(sender, "&eGave " + amount +" " + toGive.getItemMeta().getDisplayName() + "&e" +(amount >1? "s" : "") + " to " + target.getName() );
-                }catch (Exception e){
+                    MessageHelper.sendPluginMessage(sender, "&eGave " + amount + " " + toGive.getItemMeta().getDisplayName() + "&e" + (amount > 1 ? "s" : "") + " to " + target.getName());
+                } catch (Exception e) {
                     MessageHelper.sendPluginMessage(sender, ChatColor.RED + "Invalid arguments! /mb give <player> <item> <amount>");
                     break;
                 }
@@ -121,15 +120,15 @@ public class MobBattleCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.GREEN + "----------------------------------------");
                 break;
             case "config":
-                if (args.length < 2){
-                    MessageHelper.sendPluginMessage(sender,  "&cInvalid arguments! /mb config <fix/reload/reset>");
+                if (args.length < 2) {
+                    MessageHelper.sendPluginMessage(sender, "&cInvalid arguments! /mb config <fix/reload/reset>");
                     break;
                 }
-                switch (args[1]){
+                switch (args[1]) {
                     case "fix":
-                        if (ConfigManager.fixConfig()){
+                        if (ConfigManager.fixConfig()) {
                             MessageHelper.sendPluginMessage(sender, "&aYour config has been fixed!");
-                        }else{
+                        } else {
                             TextComponent pluginName = new TextComponent(ChatColor.translateAlternateColorCodes('&', "&6&l[&bMobBattle&6&l]&r "));
                             TextComponent wrong = new TextComponent(ChatColor.RED + "Something went wrong! If you cannot fix the error, try ");
 
@@ -144,7 +143,7 @@ public class MobBattleCommand implements CommandExecutor {
                     case "reload":
                         ConfigManager.reloadConfig();
                         MessageHelper.sendPluginMessage(sender, "&aConfig has been reloaded!");
-                        if (!ConfigManager.testConfig()){
+                        if (!ConfigManager.testConfig()) {
                             TextComponent pluginName = new TextComponent(ChatColor.translateAlternateColorCodes('&', "&6&l[&bMobBattle&6&l]&r "));
 
                             TextComponent wrong = new TextComponent(ChatColor.RED + "Something is wrong with the config! To fix it, try ");
@@ -170,7 +169,7 @@ public class MobBattleCommand implements CommandExecutor {
                         MessageHelper.sendPluginMessage(sender, "&aConfig has been reset!");
                         break;
                     default:
-                        MessageHelper.sendPluginMessage(sender,  "&cInvalid arguments! /mb config <fix/reload/reset>");
+                        MessageHelper.sendPluginMessage(sender, "&cInvalid arguments! /mb config <fix/reload/reset>");
                         break;
                 }
 
@@ -188,7 +187,7 @@ public class MobBattleCommand implements CommandExecutor {
                 TextComponent forMoreInfo = new TextComponent(ChatColor.RED + " for more info!");
 
                 sender.spigot().sendMessage(pluginName, invalidArgs, help1, forMoreInfo);
-            }
+        }
 
 
         return true;

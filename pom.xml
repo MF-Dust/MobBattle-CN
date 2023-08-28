@@ -6,7 +6,7 @@
 
     <groupId>me.mxtery</groupId>
     <artifactId>MobBattle</artifactId>
-    <version>1.1</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
 
     <name>MobBattle</name>
@@ -71,10 +71,6 @@
             <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.decimal4j</groupId>
-            <artifactId>decimal4j</artifactId>
-            <version>1.0.3</version>
-        </dependency>
+
     </dependencies>
 </project>

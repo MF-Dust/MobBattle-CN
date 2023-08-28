@@ -1,6 +1,5 @@
 package me.mxtery.mobbattle.events;
 
-import jdk.internal.org.jline.reader.ParsedLine;
 import me.mxtery.mobbattle.Keys;
 import me.mxtery.mobbattle.helpers.PlayerHelper;
 import org.bukkit.entity.Entity;
@@ -11,61 +10,60 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityInteractEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.persistence.PersistentDataType;
 
 public class MobVaporizerEvents implements Listener {
     @EventHandler
-    public void onPlace(BlockPlaceEvent event){
+    public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        if (!PlayerHelper.playerHoldingItem(player, Keys.MOB_VAPORIZER, PersistentDataType.INTEGER)){
+        if (!PlayerHelper.playerHoldingItem(player, Keys.MOB_VAPORIZER, PersistentDataType.INTEGER)) {
             return;
         }
         event.setCancelled(true);
     }
+
     @EventHandler
-    public void onHit(EntityDamageByEntityEvent event){
-        if (!(event.getDamager() instanceof Player)){
+    public void onHit(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Player)) {
             return;
         }
-        Player player =(Player) event.getDamager();
-        if (!PlayerHelper.playerHoldingItem(player, Keys.MOB_VAPORIZER, PersistentDataType.INTEGER)){
+        Player player = (Player) event.getDamager();
+        if (!PlayerHelper.playerHoldingItem(player, Keys.MOB_VAPORIZER, PersistentDataType.INTEGER)) {
             return;
         }
-            event.setDamage(Integer.MAX_VALUE);
+        event.setDamage(Integer.MAX_VALUE);
     }
 
 
     @EventHandler
-    public void onAreaKill(PlayerInteractEvent event){
+    public void onAreaKill(PlayerInteractEvent event) {
 
-        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK){
+
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
-        if (event.getHand() != EquipmentSlot.HAND){
+        if (event.getHand() != EquipmentSlot.HAND) {
             return;
         }
 
-        Player player =event.getPlayer();
-        if (!PlayerHelper.playerHoldingItem(player, Keys.MOB_VAPORIZER, PersistentDataType.INTEGER)){
+        Player player = event.getPlayer();
+        if (!PlayerHelper.playerHoldingItem(player, Keys.MOB_VAPORIZER, PersistentDataType.INTEGER)) {
             return;
         }
         event.setCancelled(true);
 
-        for (Entity entity : event.getPlayer().getWorld().getNearbyEntities(player.getTargetBlock(null,5).getLocation() ,5,5,5)){
-            if (entity instanceof Player){
+        for (Entity entity : event.getPlayer().getWorld().getNearbyEntities(player.getTargetBlock(null, 5).getLocation(), 5, 5, 5)) {
+            if (entity instanceof Player) {
                 continue;
             }
-            if (entity instanceof LivingEntity){
+            if (entity instanceof LivingEntity) {
                 ((LivingEntity) entity).setHealth(0);
-            }else{
+            } else {
                 entity.remove();
             }
-        }    }
+        }
+    }
 
 }

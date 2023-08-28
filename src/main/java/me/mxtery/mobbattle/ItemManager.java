@@ -12,16 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemManager {
-    private MobBattle plugin;
     private ItemStack teamBattleWand;
     private ItemStack mobBattleWand;
-    private ItemStack mobParalyzer;
+    private ItemStack mobModifier;
     private ItemStack mobVaporizer;
-    public ItemManager(MobBattle plugin){
-        this.plugin = plugin;
+
+    public ItemManager() {
         makeTeamBattleWand();
         makeMobBattleWand();
-        makeMobParalyzer();
+        makeMobModifier();
         makeMobVaporizer();
     }
 
@@ -33,26 +32,18 @@ public class ItemManager {
         return mobBattleWand;
     }
 
-    public ItemStack getMobParalyzer() {
-        return mobParalyzer;
-    }
 
-    public ItemStack getMobVaporizer() {
-        return mobVaporizer;
-    }
-
-    public List<ItemStack> getItems(){
+    public List<ItemStack> getItems() {
         List<ItemStack> items = new ArrayList<>();
         items.add(teamBattleWand);
         items.add(mobBattleWand);
-        items.add(mobParalyzer);
+        items.add(mobModifier);
         items.add(mobVaporizer);
         return items;
     }
 
 
-
-    private void makeTeamBattleWand(){
+    private void makeTeamBattleWand() {
         teamBattleWand = new ItemStack(Material.BLAZE_ROD);
         ItemMeta meta = teamBattleWand.getItemMeta();
         meta.getPersistentDataContainer().set(Keys.TEAM_BATTLE_WAND, PersistentDataType.INTEGER, 1);
@@ -61,10 +52,10 @@ public class ItemManager {
         List<String> lore = new ArrayList<>();
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&6Item Ability: Red Team Select &e&lLEFT CLICK"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Adds/removes the targeted monster to/from the red team!"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Adds/Removes the targeted monster to/from the red team!"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&6Item Ability: Blue Team Select &e&lRIGHT CLICK"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Adds/removes the targeted monster to/from the blue team!"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Adds/Removes the targeted monster to/from the blue team!"));
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&6Item Ability: Red Team Reset &e&lSHIFT + LEFT CLICK"));
         lore.add(ChatColor.translateAlternateColorCodes('&', "&7Resets the red team!"));
@@ -72,16 +63,17 @@ public class ItemManager {
         lore.add(ChatColor.translateAlternateColorCodes('&', "&6Item Ability: Blue Team Reset &e&lSHIFT + RIGHT CLICK"));
         lore.add(ChatColor.translateAlternateColorCodes('&', "&7Resets the blue team!"));
         lore.add("");
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&6Item Ability: Start Battle &e&lDROP"));
-        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Starts the battle!"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&6Item Ability: Start/End Battle &e&lSHIFT + DROP"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Starts/Ends the battle!"));
         meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         teamBattleWand.setItemMeta(meta);
         teamBattleWand.addUnsafeEnchantment(Enchantment.LUCK, 1);
     }
-    private void makeMobBattleWand(){
+
+    private void makeMobBattleWand() {
         mobBattleWand = new ItemStack(Material.STICK);
-        ItemMeta meta = mobBattleWand. getItemMeta();
+        ItemMeta meta = mobBattleWand.getItemMeta();
         meta.getPersistentDataContainer().set(Keys.MOB_BATTLE_WAND, PersistentDataType.INTEGER, 1);
         meta.getPersistentDataContainer().set(Keys.MOB_BATTLE_ITEM, PersistentDataType.INTEGER, 1);
         meta.setDisplayName(ChatColor.YELLOW + "Mob Battle Wand");
@@ -105,9 +97,9 @@ public class ItemManager {
         mobBattleWand.addUnsafeEnchantment(Enchantment.LUCK, 1);
     }
 
-    private void makeMobParalyzer(){
-        mobParalyzer = new ItemStack(Material.BONE);
-        ItemMeta meta = mobParalyzer.getItemMeta();
+    private void makeMobModifier() {
+        mobModifier = new ItemStack(Material.BONE);
+        ItemMeta meta = mobModifier.getItemMeta();
         meta.setDisplayName(ChatColor.GREEN + "Mob Modifier");
         meta.getPersistentDataContainer().set(Keys.MOB_MODIFIER, PersistentDataType.INTEGER, 1);
         meta.getPersistentDataContainer().set(Keys.MOB_BATTLE_ITEM, PersistentDataType.INTEGER, 1);
@@ -121,12 +113,16 @@ public class ItemManager {
         lore.add("");
         lore.add(ChatColor.translateAlternateColorCodes('&', "&6Item Ability: Mob Invisibility &e&lSHIFT + RIGHT CLICK"));
         lore.add(ChatColor.translateAlternateColorCodes('&', "&7Toggles the invisibility of the selected mob!"));
+        lore.add("");
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&6Item Ability: Heal Mob &e&lSHIFT + LEFT CLICK"));
+        lore.add(ChatColor.translateAlternateColorCodes('&', "&7Heals the selected mob up to full health!!"));
         meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        mobParalyzer.setItemMeta(meta);
-        mobParalyzer.addUnsafeEnchantment(Enchantment.LUCK, 1);
+        mobModifier.setItemMeta(meta);
+        mobModifier.addUnsafeEnchantment(Enchantment.LUCK, 1);
     }
-    private void makeMobVaporizer(){
+
+    private void makeMobVaporizer() {
         mobVaporizer = new ItemStack(Material.BAMBOO);
         ItemMeta meta = mobVaporizer.getItemMeta();
         meta.setDisplayName(ChatColor.LIGHT_PURPLE + "Mob Vaporizer");
@@ -145,9 +141,6 @@ public class ItemManager {
         mobVaporizer.setItemMeta(meta);
         mobVaporizer.addUnsafeEnchantment(Enchantment.LUCK, 1);
     }
-
-
-
 
 
 }

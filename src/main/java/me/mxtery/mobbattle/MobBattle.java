@@ -5,46 +5,49 @@ import me.mxtery.mobbattle.commands.MobBattleCommand;
 import me.mxtery.mobbattle.commands.MobBattleTabCompleter;
 import me.mxtery.mobbattle.events.*;
 import me.mxtery.mobbattle.helpers.ConfigManager;
-import me.mxtery.mobbattle.helpers.Debug;
 import me.mxtery.mobbattle.helpers.RunnableHelper;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MobBattle extends JavaPlugin {
     private ItemManager itemManager;
-//    TODO: Sounds, Team Mob Battle, Mob Vaporizer
+
     @Override
     public void onEnable() {
+        new UpdateChecker(this, 100660);
         ConfigManager.setupConfig(this);
         Keys.init(this);
         RunnableHelper.init(this);
-        itemManager = new ItemManager(this);
+        itemManager = new ItemManager();
         getCommand("mobbattle").setExecutor(new MobBattleCommand(this));
         getCommand("mobbattle").setTabCompleter(new MobBattleTabCompleter());
-        Debug.init(this);
-        MobBattleWandEvents mobBattleWandEvents = new MobBattleWandEvents();
-//        getServer().getPluginManager().registerEvents(new TeamBattleWandEvents(), this);
+        MobBattleWandEvents mobBattleWandEvents;
+        TeamBattleWandEvents teamBattleWandEvents;
+
+        teamBattleWandEvents = new TeamBattleWandEvents(this, itemManager);
+        mobBattleWandEvents = new MobBattleWandEvents(teamBattleWandEvents, itemManager);
+        teamBattleWandEvents.setBattleWandEvents(mobBattleWandEvents);
+
         getServer().getPluginManager().registerEvents(mobBattleWandEvents, this);
         getServer().getPluginManager().registerEvents(new MobModifierEvents(), this);
         getServer().getPluginManager().registerEvents(new MobVaporizerEvents(), this);
+        getServer().getPluginManager().registerEvents(teamBattleWandEvents, this);
         getServer().getPluginManager().registerEvents(new UpdateItemEvents(itemManager), this);
-        if (ConfigManager.getActionBarMessagesEnabled()){
+        if (ConfigManager.getActionBarMessagesEnabled()) {
             ActionBarSender actionBarSender = new ActionBarSender();
             getServer().getPluginManager().registerEvents(actionBarSender, this);
-            actionBarSender.start(this, mobBattleWandEvents);
+            actionBarSender.start(this, mobBattleWandEvents, teamBattleWandEvents);
         }
+        MobRemovedChecker mobRemovedChecker = new MobRemovedChecker();
+        mobRemovedChecker.start(this, mobBattleWandEvents);
 
 
-
-
-
-        if (!ConfigManager.testConfig()){
+        if (!ConfigManager.testConfig()) {
             TextComponent pluginName = new TextComponent(ChatColor.translateAlternateColorCodes('&', "&6&l[&bMobBattle&6&l]&r "));
 
             TextComponent wrong = new TextComponent(ChatColor.RED + "Something is wrong with the config! To fix it, try ");
@@ -59,8 +62,8 @@ public final class MobBattle extends JavaPlugin {
             reset.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mb config reset"));
             reset.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.AQUA + "Run" + ChatColor.YELLOW + " /mb config reset")));
             getServer().getConsoleSender().spigot().sendMessage(pluginName, wrong, fix, persist, reset);
-            for (Player player : getServer().getOnlinePlayers()){
-                if (player.isOp()){
+            for (Player player : getServer().getOnlinePlayers()) {
+                if (player.isOp()) {
                     player.spigot().sendMessage(pluginName, wrong, fix, persist, reset);
                 }
             }
@@ -76,7 +79,8 @@ public final class MobBattle extends JavaPlugin {
 
 
     }
-    public ItemManager getItemManager(){
+
+    public ItemManager getItemManager() {
         return itemManager;
     }
 

@@ -467,6 +467,11 @@ public class TeamBattleWandEvents implements Listener {
         if (!player.isSneaking()) {
             return;
         }
+        if (playerToBattle.containsKey(player.getUniqueId())){
+            MessageHelper.sendPluginMessage(player, "&cYou have already started a battle!");
+            return;
+        }
+
         playerToRedTeam.computeIfAbsent(player.getUniqueId(), k -> new HashSet<>());
 
 
@@ -515,6 +520,10 @@ public class TeamBattleWandEvents implements Listener {
         }
         event.setCancelled(true);
         if (!player.isSneaking()) {
+            return;
+        }
+        if (playerToBattle.containsKey(player.getUniqueId())){
+            MessageHelper.sendPluginMessage(player, "&cYou have already started a battle!");
             return;
         }
         playerToRedTeam.computeIfAbsent(player.getUniqueId(), k -> new HashSet<>());

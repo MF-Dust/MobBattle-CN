@@ -115,17 +115,17 @@ public class TeamBattleWandEvents implements Listener {
         }
         Entity entity = event.getEntity();
         if (!(entity instanceof Mob)) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "Invalid entity! The entity has to be a mob. (zombie, skeleton, pillager, iron golem, etc.)");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "实体无效或不支持");
             SoundHelper.playErrorSound(player);
             return;
         }
         if (mobsInBattle.contains(entity.getUniqueId())) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "This mob is already in a battle!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "它已经在战斗了!");
             SoundHelper.playErrorSound(player);
             return;
         }
         if (playerToBattle.containsKey(player.getUniqueId()) && playerToBattle.get(player.getUniqueId()) != null) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already started a battle!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经开战了!");
             SoundHelper.playErrorSound(player);
             return;
         }
@@ -139,7 +139,7 @@ public class TeamBattleWandEvents implements Listener {
 
 
         if (blueTeam.contains(mob.getUniqueId())) {
-            MessageHelper.sendPluginMessage(player, "&c" + mob.getName() + "&c is already on the " + "&9blue " + "&cteam!");
+            MessageHelper.sendPluginMessage(player, "&c" + mob.getName() + "&c 在 " + "&9蓝 " + "&c队!");
             SoundHelper.playErrorSound(player);
             return;
         }
@@ -147,7 +147,7 @@ public class TeamBattleWandEvents implements Listener {
         for (HashSet<UUID> hashSet : playerToRedTeam.values()) {
             if (hashSet.contains(mob.getUniqueId())) {
                 if (!getKey(playerToRedTeam, hashSet).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c 已经被另一个玩家选择!");
                     SoundHelper.playErrorSound(player);
                     return;
                 }
@@ -157,9 +157,9 @@ public class TeamBattleWandEvents implements Listener {
         for (UUID uuid : mobBattleWandEvents.getPlayerToEntity2().values()) {
             if (uuid.equals(mob.getUniqueId())) {
                 if (getKey(mobBattleWandEvents.getPlayerToEntity2(), uuid).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, "&cYou have already selected " + mob.getName() + "&c on your " + itemManager.getMobBattleWand().getItemMeta().getDisplayName() + "&c!");
+                    MessageHelper.sendPluginMessage(player, "&c你已经选择了 " + mob.getName() + "&c 作为你的 " + itemManager.getMobBattleWand().getItemMeta().getDisplayName() + "&c!");
                 } else {
-                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c 已经被另一个玩家选择!");
                 }
                 SoundHelper.playErrorSound(player);
                 return;
@@ -168,9 +168,9 @@ public class TeamBattleWandEvents implements Listener {
         for (UUID uuid : mobBattleWandEvents.getPlayerToEntity1().values()) {
             if (uuid.equals(mob.getUniqueId())) {
                 if (getKey(mobBattleWandEvents.getPlayerToEntity1(), uuid).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, "&cYou have already selected " + mob.getName() + "&c on your " + itemManager.getMobBattleWand().getItemMeta().getDisplayName() + "&c!");
+                    MessageHelper.sendPluginMessage(player, "&c你已经选择了 " + mob.getName() + "&c 作为你的 " + itemManager.getMobBattleWand().getItemMeta().getDisplayName() + "&c!");
                 } else {
-                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c 已经被另一个玩家选择!");
                 }
                 SoundHelper.playErrorSound(player);
                 return;
@@ -180,7 +180,7 @@ public class TeamBattleWandEvents implements Listener {
         for (HashSet<UUID> hashSet : playerToBlueTeam.values()) {
             if (hashSet.contains(mob.getUniqueId())) {
                 if (!getKey(playerToBlueTeam, hashSet).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c 已经被另一个玩家选择!");
                     SoundHelper.playErrorSound(player);
                     return;
                 }
@@ -213,7 +213,7 @@ public class TeamBattleWandEvents implements Listener {
             redTeam.add(mob.getUniqueId());
             playerToRedTeam.put(player.getUniqueId(), redTeam);
             SoundHelper.playDingSound(player);
-            MessageHelper.sendPluginMessage(player, "&aAdded " + mob.getName() + "&a to the " + "&cred " + "&ateam!");
+            MessageHelper.sendPluginMessage(player, "&a已加入 " + mob.getName() + " " + "&c红" + "&a队!");
             if (!mob.isCustomNameVisible()) {
                 mob.setCustomNameVisible(true);
                 nameVisibleChange.add(mob.getUniqueId());
@@ -268,7 +268,7 @@ public class TeamBattleWandEvents implements Listener {
                     }
                 }
                 playerToBlueTeam.remove(player.getUniqueId());
-                MessageHelper.sendPluginMessage(player, "&cYour &9blue team&c selection was reset because you switched worlds!");
+                MessageHelper.sendPluginMessage(player, "&c你的 &9蓝队&c 已被重置,因为你切换世界了!");
             }
         }
         if (playerToRedTeam.containsKey(player.getUniqueId())) {
@@ -300,7 +300,7 @@ public class TeamBattleWandEvents implements Listener {
                     }
                 }
                 playerToRedTeam.remove(player.getUniqueId());
-                MessageHelper.sendPluginMessage(player, "&cYour &4red&c team selection was reset because you switched worlds!");
+                MessageHelper.sendPluginMessage(player, "&c你的 &4红&c队已被重置,因为你切换了世界!");
             }
         }
     }
@@ -325,17 +325,17 @@ public class TeamBattleWandEvents implements Listener {
         }
         Entity entity = event.getRightClicked();
         if (!(entity instanceof Mob)) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "Invalid entity! The entity has to be a mob. (zombie, skeleton, pillager, iron golem, etc.)");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "实体无效或不支持");
             SoundHelper.playErrorSound(player);
             return;
         }
         if (mobsInBattle.contains(entity.getUniqueId())) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "This mob is already in a battle!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "它已经在战斗了!");
             SoundHelper.playErrorSound(player);
             return;
         }
         if (playerToBattle.containsKey(player.getUniqueId()) && playerToBattle.get(player.getUniqueId()) != null) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already started a battle!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经开战了!");
             SoundHelper.playErrorSound(player);
             return;
         }
@@ -348,7 +348,7 @@ public class TeamBattleWandEvents implements Listener {
         HashSet<UUID> redTeam = playerToRedTeam.get(player.getUniqueId());
 
         if (redTeam.contains(mob.getUniqueId())) {
-            MessageHelper.sendPluginMessage(player, "&c" + mob.getName() + "&c is already on the " + "&cred " + "&cteam!");
+            MessageHelper.sendPluginMessage(player, "&c" + mob.getName() + "&c 在 " + "&cred " + "&cteam!");
             SoundHelper.playErrorSound(player);
             return;
         }
@@ -356,7 +356,7 @@ public class TeamBattleWandEvents implements Listener {
         for (HashSet<UUID> hashSet : playerToRedTeam.values()) {
             if (hashSet.contains(mob.getUniqueId())) {
                 if (!getKey(playerToRedTeam, hashSet).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c 已经被另一个玩家选择!");
                     SoundHelper.playErrorSound(player);
                     return;
                 }
@@ -366,7 +366,7 @@ public class TeamBattleWandEvents implements Listener {
         for (HashSet<UUID> hashSet : playerToBlueTeam.values()) {
             if (hashSet.contains(mob.getUniqueId())) {
                 if (!getKey(playerToBlueTeam, hashSet).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c 已经被另一个玩家选择!");
                     SoundHelper.playErrorSound(player);
                     return;
                 }
@@ -375,9 +375,9 @@ public class TeamBattleWandEvents implements Listener {
         for (UUID uuid : mobBattleWandEvents.getPlayerToEntity2().values()) {
             if (uuid.equals(mob.getUniqueId())) {
                 if (getKey(mobBattleWandEvents.getPlayerToEntity2(), uuid).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, "&cYou have already selected " + mob.getName() + "&c on your " + itemManager.getMobBattleWand().getItemMeta().getDisplayName() + "&c!");
+                    MessageHelper.sendPluginMessage(player, "&c你已经选择了 " + mob.getName() + "&c 作为你的 " + itemManager.getMobBattleWand().getItemMeta().getDisplayName() + "&c!");
                 } else {
-                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c 已经被另一个玩家选择!");
                 }
                 SoundHelper.playErrorSound(player);
                 return;
@@ -386,9 +386,9 @@ public class TeamBattleWandEvents implements Listener {
         for (UUID uuid : mobBattleWandEvents.getPlayerToEntity1().values()) {
             if (uuid.equals(mob.getUniqueId())) {
                 if (getKey(mobBattleWandEvents.getPlayerToEntity1(), uuid).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, "&cYou have already selected " + mob.getName() + "&c on your " + itemManager.getMobBattleWand().getItemMeta().getDisplayName() + "&c!");
+                    MessageHelper.sendPluginMessage(player, "&c你已经选择了 " + mob.getName() + "&c 作为你的 " + itemManager.getMobBattleWand().getItemMeta().getDisplayName() + "&c!");
                 } else {
-                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob.getName() + "&c 已经被另一个玩家选择!");
                 }
                 SoundHelper.playErrorSound(player);
                 return;
@@ -400,7 +400,7 @@ public class TeamBattleWandEvents implements Listener {
             blueTeam.remove(mob.getUniqueId());
             playerToBlueTeam.put(player.getUniqueId(), blueTeam);
             SoundHelper.playDingSound(player);
-            MessageHelper.sendPluginMessage(player, "&aRemoved " + mob.getName() + "&a from the " + "&9blue " + "&ateam!");
+            MessageHelper.sendPluginMessage(player, "&a成功移除 " + mob.getName() + "&a 从 " + "&9蓝 " + "&a队!");
             if (colorChange.contains(mob.getUniqueId())) {
                 if (mob.getCustomName() != null) {
                     mob.setCustomName(ChatColor.stripColor(mob.getCustomName()));
@@ -421,7 +421,7 @@ public class TeamBattleWandEvents implements Listener {
             blueTeam.add(mob.getUniqueId());
             playerToBlueTeam.put(player.getUniqueId(), blueTeam);
             SoundHelper.playDingSound(player);
-            MessageHelper.sendPluginMessage(player, "&aAdded " + mob.getName() + "&a to the " + "&9blue " + "&ateam!");
+            MessageHelper.sendPluginMessage(player, "&a成功添加 " + mob.getName() + "&a 至 " + "&9蓝 " + "&a队!");
             if (!mob.isCustomNameVisible()) {
                 mob.setCustomNameVisible(true);
                 nameVisibleChange.add(mob.getUniqueId());
@@ -468,7 +468,7 @@ public class TeamBattleWandEvents implements Listener {
             return;
         }
         if (playerToBattle.containsKey(player.getUniqueId())){
-            MessageHelper.sendPluginMessage(player, "&cYou have already started a battle!");
+            MessageHelper.sendPluginMessage(player, "&c你已经开战了!");
             return;
         }
 
@@ -502,7 +502,7 @@ public class TeamBattleWandEvents implements Listener {
         }
         redTeam.clear();
         playerToRedTeam.put(player.getUniqueId(), redTeam);
-        MessageHelper.sendPluginMessage(player, "&aReset the &cred &ateam!");
+        MessageHelper.sendPluginMessage(player, "&a重置了 &c红 &a队!");
 
     }
 
@@ -523,7 +523,7 @@ public class TeamBattleWandEvents implements Listener {
             return;
         }
         if (playerToBattle.containsKey(player.getUniqueId())){
-            MessageHelper.sendPluginMessage(player, "&cYou have already started a battle!");
+            MessageHelper.sendPluginMessage(player, "&c你已经开战了!");
             return;
         }
         playerToRedTeam.computeIfAbsent(player.getUniqueId(), k -> new HashSet<>());
@@ -559,7 +559,7 @@ public class TeamBattleWandEvents implements Listener {
 
         blueTeam.clear();
         playerToBlueTeam.put(player.getUniqueId(), blueTeam);
-        MessageHelper.sendPluginMessage(player, "&aReset the &9blue &ateam!");
+        MessageHelper.sendPluginMessage(player, "&a重置了 &9蓝 &a队!");
 
     }
 
@@ -587,17 +587,17 @@ public class TeamBattleWandEvents implements Listener {
 
     private void startBattle(Player player) {
         if ((playerToRedTeam.get(player.getUniqueId()) == null || playerToRedTeam.get(player.getUniqueId()).isEmpty()) && (playerToBlueTeam.get(player.getUniqueId()) == null || playerToBlueTeam.get(player.getUniqueId()).isEmpty())) {
-            MessageHelper.sendPluginMessage(player, "&cYou have not selected a &4red &cor &9blue &cteam yet!");
+            MessageHelper.sendPluginMessage(player, "&c你还没选择  &4红 &c或 &9蓝 &c队!");
             SoundHelper.playErrorSound(player);
             return;
         }
         if (playerToRedTeam.get(player.getUniqueId()) == null || playerToRedTeam.get(player.getUniqueId()).isEmpty()) {
-            MessageHelper.sendPluginMessage(player, "&cYou have not selected a &4red &cteam yet!");
+            MessageHelper.sendPluginMessage(player, "&你还没选择 &4红 &c队!");
             SoundHelper.playErrorSound(player);
             return;
         }
         if (playerToBlueTeam.get(player.getUniqueId()) == null || playerToBlueTeam.get(player.getUniqueId()).isEmpty()) {
-            MessageHelper.sendPluginMessage(player, "&cYou have not selected a &9blue &cteam yet!");
+            MessageHelper.sendPluginMessage(player, "&c你还没选择 &9蓝 &ct队!");
             SoundHelper.playErrorSound(player);
             return;
         }
@@ -607,7 +607,7 @@ public class TeamBattleWandEvents implements Listener {
         playerToBattle.put(player.getUniqueId(), teamBattleInstance);
         plugin.getServer().getPluginManager().registerEvents(teamBattleInstance, plugin);
         SoundHelper.playDragonSound(player);
-        MessageHelper.sendGradientPluginMessage(player, MessageHelper.createGradient("The team battle has begun!", 312, 0, 92));
+        MessageHelper.sendGradientPluginMessage(player, MessageHelper.createGradient("战斗已经开始!", 312, 0, 92));
     }
 
 
@@ -631,7 +631,7 @@ public class TeamBattleWandEvents implements Listener {
                     hashSet.remove(entity.getUniqueId());
                     playerToBlueTeam.put(player.getUniqueId(), hashSet);
                 }
-                MessageHelper.sendPluginMessage(player, "&e" + entity.getName() + " &ehas died!");
+                MessageHelper.sendPluginMessage(player, "&e" + entity.getName() + " &e死了!");
             }
         }
         for (HashSet<UUID> hashSet : playerToRedTeam.values()) {
@@ -645,7 +645,7 @@ public class TeamBattleWandEvents implements Listener {
                     playerToRedTeam.put(player.getUniqueId(), hashSet);
                 }
 
-                MessageHelper.sendPluginMessage(player, "&e" + entity.getName() + " &ehas died!");
+                MessageHelper.sendPluginMessage(player, "&e" + entity.getName() + " &e死了!");
             }
         }
     }

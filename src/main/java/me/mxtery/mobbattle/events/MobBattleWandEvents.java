@@ -94,33 +94,33 @@ public class MobBattleWandEvents implements Listener {
                 playerToEntity1.remove(player.getUniqueId());
                 playerToInBattle.put(player.getUniqueId(), false);
                 SoundHelper.playLevelUpSound(player);
-                MessageHelper.sendPluginMessage(player, ChatColor.GREEN + "Battle ended!");
+                MessageHelper.sendPluginMessage(player, ChatColor.GREEN + "战斗结束!");
                 return;
             }
         }
 
         if (playerToEntity1.get(player.getUniqueId()) == null) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have not set entity 1 yet!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经选择过实体1了!");
             SoundHelper.playErrorSound(player);
             return;
         }
         if (playerToEntity2.get(player.getUniqueId()) == null) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have not set entity 2 yet!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经选择过实体2了!");
             SoundHelper.playErrorSound(player);
             return;
         }
 
 
-        MessageHelper.sendPluginMessage(player, ChatColor.LIGHT_PURPLE + "Let the fight commence!");
+        MessageHelper.sendPluginMessage(player, ChatColor.LIGHT_PURPLE + "战斗开始!");
         SoundHelper.playDragonSound(player);
         Mob mob2 = (Mob) Bukkit.getEntity(playerToEntity2.get(player.getUniqueId()));
         Mob mob1 = (Mob) Bukkit.getEntity(playerToEntity1.get(player.getUniqueId()));
         if (mob2 == null || mob2.isDead()) {
             if (mob2 != null) {
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob2.getName() + "&e has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob2.getName() + "&e 死了!");
                 SoundHelper.playLevelUpSound(player);
             } else {
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "Entity 2 has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "实体2死了!");
                 SoundHelper.playLevelUpSound(player);
             }
             playerToEntity2.remove(player.getUniqueId());
@@ -128,10 +128,10 @@ public class MobBattleWandEvents implements Listener {
         }
         if (mob1 == null || mob1.isDead()) {
             if (mob1 != null) {
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob1.getName() + "&e has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob1.getName() + "&e has 死了!");
                 SoundHelper.playLevelUpSound(player);
             } else {
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "Entity 1 has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "实体1死了!");
                 SoundHelper.playLevelUpSound(player);
             }
             playerToEntity1.remove(player.getUniqueId());
@@ -154,10 +154,10 @@ public class MobBattleWandEvents implements Listener {
 
         if (mob1 == null || mob1.isDead()) {
             if (mob1 != null) {
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob1.getName() + "&e has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob1.getName() + "&e 死了!");
                 SoundHelper.playLevelUpSound(player);
             } else {
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "Entity 1 has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "实体1死了!");
                 SoundHelper.playLevelUpSound(player);
             }
             playerToInBattle.put(player.getUniqueId(), false);
@@ -173,10 +173,10 @@ public class MobBattleWandEvents implements Listener {
         }
         if (mob2 == null || mob2.isDead()) {
             if (mob2 != null) {
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob2.getName() + "&e has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob2.getName() + "&e 死了!");
                 SoundHelper.playLevelUpSound(player);
             } else {
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "Entity 2 has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "实体2死了!");
                 SoundHelper.playLevelUpSound(player);
             }
             playerToInBattle.put(player.getUniqueId(), false);
@@ -213,7 +213,7 @@ public class MobBattleWandEvents implements Listener {
         event.setCancelled(true);
         if (playerToInBattle.containsKey(player.getUniqueId())) {
             if (playerToInBattle.get(player.getUniqueId())) {
-                MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already started a fight.");
+                MessageHelper.sendPluginMessage(player, ChatColor.RED + "战斗已经开始了.");
                 SoundHelper.playErrorSound(player);
                 return;
 
@@ -221,7 +221,7 @@ public class MobBattleWandEvents implements Listener {
         }
         playerToEntity1.remove(player.getUniqueId());
         playerToEntity2.remove(player.getUniqueId());
-        MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "Selections reset!");
+        MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + "选择已重置!");
         SoundHelper.playDingSound(player);
 
 
@@ -244,14 +244,14 @@ public class MobBattleWandEvents implements Listener {
 
         if (playerToInBattle.containsKey(player.getUniqueId())) {
             if (playerToInBattle.get(player.getUniqueId())) {
-                MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already started a fight.");
+                MessageHelper.sendPluginMessage(player, ChatColor.RED + "战斗已经开始了.");
                 SoundHelper.playErrorSound(player);
                 return;
             }
         }
 
         if (playerToEntity1.containsKey(player.getUniqueId())) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already selected entity 1. " + ChatColor.YELLOW + ChatColor.BOLD + "SHIFT + RIGHT CLICK " + ChatColor.RED + "to reset teams!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经选择过实体1了. " + ChatColor.YELLOW + ChatColor.BOLD + "SHIFT + RIGHT CLICK " + ChatColor.RED + "to reset teams!");
             SoundHelper.playErrorSound(player);
 
             return;
@@ -260,14 +260,14 @@ public class MobBattleWandEvents implements Listener {
 
         Entity entity1 = event.getRightClicked();
         if (!(entity1 instanceof Mob)) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "Invalid entity! The entity has to be a mob. (zombie, skeleton, pillager, iron golem, etc.)");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "实体无效! ");
             SoundHelper.playErrorSound(player);
 
             return;
         }
         Mob mob1 = (Mob) entity1;
         if (entity1ToEntity2.containsValue(entity1.getUniqueId()) || entity1ToEntity2.containsKey(entity1.getUniqueId())) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "This mob is already in a fight!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "它已经在战斗了!");
             SoundHelper.playErrorSound(player);
             return;
         }
@@ -275,12 +275,12 @@ public class MobBattleWandEvents implements Listener {
         for (UUID uuid : playerToEntity2.values()) {
             if (uuid.equals(mob1.getUniqueId())) {
                 if (getKey(playerToEntity2, uuid) != null && getKey(playerToEntity2, uuid).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already selected this mob!");
+                    MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经选择过这个实体了!");
                     SoundHelper.playErrorSound(player);
                     return;
                 }
                 SoundHelper.playErrorSound(player);
-                MessageHelper.sendPluginMessage(player, ChatColor.RED + "Another player has already selected this mob!");
+                MessageHelper.sendPluginMessage(player, ChatColor.RED + "另一个玩家已选择此实体!");
                 return;
             }
         }
@@ -289,21 +289,21 @@ public class MobBattleWandEvents implements Listener {
         for (UUID uuid : playerToEntity1.values()) {
             if (uuid.equals(mob1.getUniqueId())) {
                 if (getKey(playerToEntity1, uuid) != null && getKey(playerToEntity1, uuid).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already selected this mob!");
+                    MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经选择过这个实体了!");
                     SoundHelper.playErrorSound(player);
                     return;
                 }
                 SoundHelper.playErrorSound(player);
-                MessageHelper.sendPluginMessage(player, ChatColor.RED + "Another player has already selected this mob!");
+                MessageHelper.sendPluginMessage(player, ChatColor.RED + "另一个玩家已选择此实体!");
                 return;
             }
         }
         for (HashSet<UUID> hashSet : teamBattleWandEvents.getPlayerToBlueTeam().values()) {
             if (hashSet.contains(mob1.getUniqueId())) {
                 if (getKey(teamBattleWandEvents.getPlayerToBlueTeam(), hashSet).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, "&cYou have already selected " + mob1.getName() + "&c on your " + itemManager.getTeamBattleWand().getItemMeta().getDisplayName() + "&c!");
+                    MessageHelper.sendPluginMessage(player, "&c你已经选择了 " + mob1.getName() + "&c 作为你的 " + itemManager.getTeamBattleWand().getItemMeta().getDisplayName() + "&c!");
                 } else {
-                    MessageHelper.sendPluginMessage(player, mob1.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob1.getName() + "&c 已经被其他玩家选择了!");
                 }
                 SoundHelper.playErrorSound(player);
                 return;
@@ -312,9 +312,9 @@ public class MobBattleWandEvents implements Listener {
         for (HashSet<UUID> hashSet : teamBattleWandEvents.getPlayerToRedTeam().values()) {
             if (hashSet.contains(mob1.getUniqueId())) {
                 if (getKey(teamBattleWandEvents.getPlayerToRedTeam(), hashSet).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, "&cYou have already selected " + mob1.getName() + "&c on your " + itemManager.getTeamBattleWand().getItemMeta().getDisplayName() + "&c!");
+                    MessageHelper.sendPluginMessage(player, "&c你已经选择了 " + mob1.getName() + "&c 作为你的 " + itemManager.getTeamBattleWand().getItemMeta().getDisplayName() + "&c!");
                 } else {
-                    MessageHelper.sendPluginMessage(player, mob1.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob1.getName() + "&c 已经被其他玩家选择了!");
                 }
                 SoundHelper.playErrorSound(player);
                 return;
@@ -323,7 +323,7 @@ public class MobBattleWandEvents implements Listener {
 
 
         playerToEntity1.put(player.getUniqueId(), mob1.getUniqueId());
-        MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob1.getName() + "&e has been set as entity 1!");
+        MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob1.getName() + "&e 被设置为实体1!");
         SoundHelper.playDingSound(player);
         if (playerToEntity2.containsKey(player.getUniqueId())) {
             MessageHelper.sendNonEssentialPluginMessage(player, ChatColor.GREEN + "Entity 1 and 2 selected! Press " + ChatColor.YELLOW + ChatColor.BOLD + "SHIFT + LEFT CLICK " + ChatColor.GREEN + "to start the battle!");
@@ -344,7 +344,7 @@ public class MobBattleWandEvents implements Listener {
         event.setCancelled(true);
         if (playerToInBattle.containsKey(player.getUniqueId())) {
             if (playerToInBattle.get(player.getUniqueId())) {
-                MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already started a fight.");
+                MessageHelper.sendPluginMessage(player, ChatColor.RED + "战斗已经开始了.");
                 SoundHelper.playErrorSound(player);
 
                 return;
@@ -352,7 +352,7 @@ public class MobBattleWandEvents implements Listener {
         }
 
         if (playerToEntity2.containsKey(player.getUniqueId())) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already selected entity 2. " + ChatColor.YELLOW + ChatColor.BOLD + "SHIFT + RIGHT CLICK " + ChatColor.RED + "to reset teams!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经选择过实体2了. " + ChatColor.YELLOW + ChatColor.BOLD + "SHIFT + RIGHT CLICK " + ChatColor.RED + "to reset teams!");
             SoundHelper.playErrorSound(player);
 
             return;
@@ -361,13 +361,13 @@ public class MobBattleWandEvents implements Listener {
 
         Entity entity2 = event.getEntity();
         if (!(entity2 instanceof Mob)) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "Invalid entity! The entity has to be a mob. (zombie, skeleton, pillager, iron golem, etc.)");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "实体无效! (zombie, skeleton, pillager, iron golem, etc.)");
             SoundHelper.playErrorSound(player);
             return;
         }
         Mob mob2 = (Mob) entity2;
         if (entity1ToEntity2.containsValue(entity2.getUniqueId()) || entity1ToEntity2.containsKey(entity2.getUniqueId())) {
-            MessageHelper.sendPluginMessage(player, ChatColor.RED + "This mob is already in a fight!");
+            MessageHelper.sendPluginMessage(player, ChatColor.RED + "它已经在战斗了!");
             SoundHelper.playErrorSound(player);
             return;
         }
@@ -376,33 +376,33 @@ public class MobBattleWandEvents implements Listener {
         for (UUID uuid : playerToEntity1.values()) {
             if (uuid.equals(mob2.getUniqueId())) {
                 if (getKey(playerToEntity1, uuid) != null && getKey(playerToEntity1, uuid).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already selected this mob!");
+                    MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经选择过这个实体了!");
                     SoundHelper.playErrorSound(player);
                     return;
                 }
                 SoundHelper.playErrorSound(player);
-                MessageHelper.sendPluginMessage(player, ChatColor.RED + "Another player has already selected this mob!");
+                MessageHelper.sendPluginMessage(player, ChatColor.RED + "另一个玩家已选择此实体!");
                 return;
             }
         }
         for (UUID uuid : playerToEntity2.values()) {
             if (uuid.equals(mob2.getUniqueId())) {
                 if (getKey(playerToEntity2, uuid) != null && getKey(playerToEntity2, uuid).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, ChatColor.RED + "You have already selected this mob!");
+                    MessageHelper.sendPluginMessage(player, ChatColor.RED + "你已经选择过这个实体了!");
                     SoundHelper.playErrorSound(player);
                     return;
                 }
                 SoundHelper.playErrorSound(player);
-                MessageHelper.sendPluginMessage(player, ChatColor.RED + "Another player has already selected this mob!");
+                MessageHelper.sendPluginMessage(player, ChatColor.RED + "另一个玩家已选择此实体!");
                 return;
             }
         }
         for (HashSet<UUID> hashSet : teamBattleWandEvents.getPlayerToBlueTeam().values()) {
             if (hashSet.contains(mob2.getUniqueId())) {
                 if (getKey(teamBattleWandEvents.getPlayerToBlueTeam(), hashSet).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, "&cYou have already selected " + mob2.getName() + "&c on your " + itemManager.getTeamBattleWand().getItemMeta().getDisplayName() + "&c!");
+                    MessageHelper.sendPluginMessage(player, "&c你已经选择了 " + mob2.getName() + "&c 作为你的 " + itemManager.getTeamBattleWand().getItemMeta().getDisplayName() + "&c!");
                 } else {
-                    MessageHelper.sendPluginMessage(player, mob2.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob2.getName() + "&c 已经被其他玩家选择了!");
                 }
                 SoundHelper.playErrorSound(player);
                 return;
@@ -411,21 +411,21 @@ public class MobBattleWandEvents implements Listener {
         for (HashSet<UUID> hashSet : teamBattleWandEvents.getPlayerToRedTeam().values()) {
             if (hashSet.contains(mob2.getUniqueId())) {
                 if (getKey(teamBattleWandEvents.getPlayerToRedTeam(), hashSet).equals(player.getUniqueId())) {
-                    MessageHelper.sendPluginMessage(player, "&cYou have already selected " + mob2.getName() + "&c on your " + itemManager.getTeamBattleWand().getItemMeta().getDisplayName() + "&c!");
+                    MessageHelper.sendPluginMessage(player, "&c你已经选择了 " + mob2.getName() + "&c 作为你的 " + itemManager.getTeamBattleWand().getItemMeta().getDisplayName() + "&c!");
                 } else {
-                    MessageHelper.sendPluginMessage(player, mob2.getName() + "&c has already been selected by another player!");
+                    MessageHelper.sendPluginMessage(player, mob2.getName() + "&c 已经被其他玩家选择了!");
                 }
                 SoundHelper.playErrorSound(player);
                 return;
             }
         }
         playerToEntity2.put(player.getUniqueId(), mob2.getUniqueId());
-        MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob2.getName() + "&e has been set as entity 2!");
+        MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + mob2.getName() + "&e 被设置为实体2!");
         SoundHelper.playDingSound(player);
         if (playerToEntity1.containsKey(player.getUniqueId())) {
-            MessageHelper.sendNonEssentialPluginMessage(player, ChatColor.GREEN + "Entity 1 and 2 selected! Press " + ChatColor.YELLOW + ChatColor.BOLD + "SHIFT + LEFT CLICK " + ChatColor.GREEN + "to start the battle!");
+            MessageHelper.sendNonEssentialPluginMessage(player, ChatColor.GREEN + "两个实体都选择好了!使用 " + ChatColor.YELLOW + ChatColor.BOLD + "SHIFT + 左键 " + ChatColor.GREEN + "开战!");
         } else {
-            MessageHelper.sendNonEssentialPluginMessage(player, ChatColor.YELLOW + "Right click a mob to select its target!");
+            MessageHelper.sendNonEssentialPluginMessage(player, ChatColor.YELLOW + "右键选择它的目标!");
         }
     }
 
@@ -443,7 +443,7 @@ public class MobBattleWandEvents implements Listener {
                     return;
                 }
 
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + event.getEntity().getName() + "&e has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + event.getEntity().getName() + "&e 死了!");
                 SoundHelper.playLevelUpSound(player);
                 if (playerToEntity1.get(player.getUniqueId()) != null) {
                     entity1ToEntity2.remove(playerToEntity1.get(player.getUniqueId()));
@@ -469,7 +469,7 @@ public class MobBattleWandEvents implements Listener {
                     return;
                 }
 
-                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + event.getEntity().getName() + "&e has died!");
+                MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + event.getEntity().getName() + "&e 死了!");
                 SoundHelper.playLevelUpSound(player);
                 if (playerToEntity1.get(player.getUniqueId()) != null) {
                     entity1ToEntity2.remove(playerToEntity1.get(player.getUniqueId()));
@@ -506,7 +506,7 @@ public class MobBattleWandEvents implements Listener {
                 return;
             }
 
-            MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + entity.getName() + "&e has died!");
+            MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + entity.getName() + "&e 死了!");
 
             if (getKey(entity1ToEntity2, event.getEntity().getUniqueId()) != null) {
                 Mob entity2 = (Mob) Bukkit.getEntity(getKey(entity1ToEntity2, event.getEntity().getUniqueId()));
@@ -530,7 +530,7 @@ public class MobBattleWandEvents implements Listener {
                 return;
             }
 
-            MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + entity.getName() + "&e has died!");
+            MessageHelper.sendPluginMessage(player, ChatColor.YELLOW + entity.getName() + "&e 死了!");
             if (entity1ToEntity2.get(entity.getUniqueId()) != null) {
                 Mob entity2 = (Mob) Bukkit.getEntity(entity1ToEntity2.get(entity.getUniqueId()));
                 if (entity2 != null) {

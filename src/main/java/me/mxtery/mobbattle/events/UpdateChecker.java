@@ -41,13 +41,13 @@ public class UpdateChecker {
 
         switch (updateCheckResult) {
             case OUT_DATED:
-                plugin.getServer().getLogger().log(Level.WARNING, "[MobBattle] You are running an outdated version of MobBattle! Consider updating to v" + latestVersionString + ".");
+                plugin.getServer().getLogger().log(Level.WARNING, "[MobBattle] 你正在运行过时的 MobBattle版本! 最新版本是 v" + latestVersionString + ".");
                 break;
             case UP_TO_DATE:
-                plugin.getServer().getLogger().log(Level.INFO, "[MobBattle] You are running the latest version of MobBattle! " + "(v" + currentVersionString + ")");
+                plugin.getServer().getLogger().log(Level.INFO, "[MobBattle] 你正在使用最新版 MobBattle! " + "(v" + currentVersionString + ")");
                 break;
             case UNRELEASED:
-                plugin.getServer().getLogger().log(Level.WARNING, "[MobBattle] You are running an unreleased version of MobBattle! " + "(v" + currentVersionString + ")");
+                plugin.getServer().getLogger().log(Level.WARNING, "[MobBattle] 你正在使用开发版本! " + "(v" + currentVersionString + ")");
                 break;
         }
 

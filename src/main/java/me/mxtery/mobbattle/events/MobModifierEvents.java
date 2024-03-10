@@ -93,7 +93,7 @@ public class MobModifierEvents implements Listener {
         livingEntity.setInvulnerable(!hasInvulnerability);
         SoundHelper.playDingSound(player);
         hasInvulnerability = livingEntity.isInvulnerable();
-        MessageHelper.sendPluginMessage(player, ChatColor.GREEN + livingEntity.getName() + "'s &ainvincibility was set to: " + ChatColor.YELLOW + ChatColor.BOLD + hasInvulnerability + "." + ChatColor.GREEN + (hasInvulnerability ? " They can now only be damaged by players in creative mode!" : ""));
+        MessageHelper.sendPluginMessage(player, ChatColor.GREEN + livingEntity.getName() + "'s &a无敌被设置为: " + ChatColor.YELLOW + ChatColor.BOLD + hasInvulnerability + "." + ChatColor.GREEN + (hasInvulnerability ? " 它只能被创造模式的的玩家攻击!" : ""));
     }
 
     @EventHandler
@@ -117,7 +117,7 @@ public class MobModifierEvents implements Listener {
         LivingEntity livingEntity = (LivingEntity) entity;
         livingEntity.setHealth(livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
         SoundHelper.playDingSound(player);
-        MessageHelper.sendPluginMessage(player, ChatColor.GREEN + livingEntity.getName() + "'s health was restored to: " + ChatColor.YELLOW + ChatColor.BOLD + livingEntity.getHealth() + ".");
+        MessageHelper.sendPluginMessage(player, ChatColor.GREEN + livingEntity.getName() + "'s 的HP被重置为: " + ChatColor.YELLOW + ChatColor.BOLD + livingEntity.getHealth() + ".");
     }
 
 

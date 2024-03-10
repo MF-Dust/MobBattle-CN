@@ -39,7 +39,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>C:\Users\websi\Documents\Minecraft Development\Spigot\Spigot Servers\Spigot 1.19 Testing Server\plugins\MobBattle.jar</outputFile>
+                            <outputFile>C:\Users\Admin\Desktop\MobBattle-master\MobBattle.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>

@@ -36,14 +36,14 @@ public class MobBattleCommand implements CommandExecutor {
 
         if (args.length < 1) {
             TextComponent pluginName = new TextComponent(ChatColor.translateAlternateColorCodes('&', "&6&l[&bMobBattle&6&l]&r "));
-            TextComponent invalidArgs = new TextComponent(ChatColor.RED + "Invalid arguments! ");
+            TextComponent invalidArgs = new TextComponent(ChatColor.RED + "无效输入! ");
 
             TextComponent help = new TextComponent(ChatColor.YELLOW + "/mb help");
             help.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mb help"));
             help.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.AQUA + "Run" + ChatColor.YELLOW + " /mb help")));
 
 
-            TextComponent forMoreInfo = new TextComponent(ChatColor.RED + " for more info!");
+            TextComponent forMoreInfo = new TextComponent(ChatColor.RED + " 以获取更多信息!");
 
             sender.spigot().sendMessage(pluginName, invalidArgs, help, forMoreInfo);
             return true;
@@ -55,12 +55,12 @@ public class MobBattleCommand implements CommandExecutor {
                 int amount;
 
                 if (args.length < 3) {
-                    MessageHelper.sendPluginMessage(sender, "&cInvalid arguments! /mb give <player> <item> <amount>");
+                    MessageHelper.sendPluginMessage(sender, "&c无效输入! /mb give <玩家> <物品> <数量>");
                     break;
                 }
                 Player target = Bukkit.getPlayer(args[1]);
                 if (target == null) {
-                    MessageHelper.sendPluginMessage(sender, "&cInvalid arguments! /mb give <player> <item> <amount>");
+                    MessageHelper.sendPluginMessage(sender, "&c无效输入! /mb give <玩家> <物品> <数量>");
                     break;
                 }
 
@@ -72,7 +72,7 @@ public class MobBattleCommand implements CommandExecutor {
                     }
                 }
                 if (toGive == null) {
-                    MessageHelper.sendPluginMessage(sender, "&cInvalid arguments! /mb give <player> <item> <amount>");
+                    MessageHelper.sendPluginMessage(sender, "&c无效输入! /mb give <玩家> <物品> <数量>");
                     break;
                 }
                 try {
@@ -87,9 +87,9 @@ public class MobBattleCommand implements CommandExecutor {
                     toGive.setAmount(amount);
                     target.getInventory().addItem(toGive);
 
-                    MessageHelper.sendPluginMessage(sender, "&eGave " + amount + " " + toGive.getItemMeta().getDisplayName() + "&e" + (amount > 1 ? "s" : "") + " to " + target.getName());
+                    MessageHelper.sendPluginMessage(sender, "&e给予 " + amount + " " + toGive.getItemMeta().getDisplayName() + "&e" + (amount > 1 ? "s" : "") + "  " + target.getName());
                 } catch (Exception e) {
-                    MessageHelper.sendPluginMessage(sender, ChatColor.RED + "Invalid arguments! /mb give <player> <item> <amount>");
+                    MessageHelper.sendPluginMessage(sender, ChatColor.RED + "无效输入! /mb give <玩家> <物品> <数量>");
                     break;
                 }
 
